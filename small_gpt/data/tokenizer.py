@@ -10,8 +10,5 @@ def get_decoding(vocabulary):
 def encode(text: str, encoding):
     return [encoding[c] for c in text]
 
-test_text = "франкейщайн!"
-test_encoding = encode(test_text)
-
 def decode(arr, decoding):
     return "".join([decoding[t] for t in arr])
