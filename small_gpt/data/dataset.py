@@ -41,7 +41,7 @@ class Dataset():
             self.paths[DatasetNames.ARITHMETIC] = path
             return path
             
-    def get(self, name: DatasetNames, split_train_coefficient: 0.9):
+    def get(self, name: DatasetNames, split_train_coefficient=0.9):
         dataset_path = self.paths[name]
         
         with open(dataset_path) as file:
@@ -57,5 +57,7 @@ class Dataset():
         train_data = data[:train_data_size]
         
         val_data = data[train_data_size:]
+        
+        vocabulary_size = len(vocabulary)
 
-        return train_data, val_data
+        return train_data, val_data, vocabulary_size
