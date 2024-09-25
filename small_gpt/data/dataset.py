@@ -9,6 +9,7 @@ from .tokenizer import get_encoding, encode, get_vocabulary
 class DatasetNames(Enum):
     FRANKENSTEIN = "Frankenstein"
     ARITHMETIC = "Arithmetic"
+    DOSTOEVSKY = "Dostoevsky"
 
 class Dataset():
     def __init__(self):
@@ -35,9 +36,31 @@ class Dataset():
             
             self.paths[name] = DATASET_PATH
             return name               
+        elif name == DatasetNames.DOSTOEVSKY:
+            urls = ["https://chitanka.info/text/15682-bratja-karamazovi.txt.zip", "https://chitanka.info/book/3180-idiot.txt.zip", "https://chitanka.info/book/1445-prestyplenie-i-nakazanie.txt.zip", "https://chitanka.info/book/4171-besove.txt.zip", "https://chitanka.info/book/6578-beli-noshti.txt.zip"]
+        
+            for url in urls:
+                file_name = url.split("/")[-1]
+                subprocess.run(["wget", "-O", file_name, url])
+                
+                with zipfile.ZipFile(file_name, 'r') as zip_ref:
+                    zip_ref.extractall(".")
+                    
+            output_file = "dostoevsky_dataset.txt"
+            
+            txt_files = [file for file in os.listdir() if file.endswith(".txt")]
 
+            with open(output_file, "w") as outfile:
+                for file in txt_files:
+                    with open(file, "r") as infile:
+                        outfile.write(infile.read())
+                        outfile.write("\n")
+                        
+            self.paths[name] = output_file
+            return output_file
+        
         elif name == DatasetNames.ARITHMETIC:
-            path = create_simple_arithmetic_dataset(100000)
+            path = create_simple_arithmetic_dataset(10000000)
             self.paths[DatasetNames.ARITHMETIC] = path
             return path
             
