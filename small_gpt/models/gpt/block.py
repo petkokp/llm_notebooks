@@ -9,7 +9,7 @@ class Block(nn.Module):
         self.layer_norm_attention = LayerNorm(n_embeddings, bias)
         self.attention = CausalSelfAttention(n_embeddings, n_heads, bias, dropout, context_length)
         self.layer_norm_mlp = LayerNorm(n_embeddings, bias)
-        self.mlp = MLP()
+        self.mlp = MLP(n_embeddings, bias, dropout)
 
     def forward(self, x):
         x = x + self.attention(self.layer_norm_attention(x))

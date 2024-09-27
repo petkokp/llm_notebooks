@@ -15,7 +15,7 @@ class GPT(nn.Module):
             token_embedding_table = nn.Embedding(vocabulary_size, n_embeddings),
             position_embedding_table = nn.Embedding(context_length, n_embeddings), # positions at which the tokens occur
             drop = nn.Dropout(dropout),
-            blocks = nn.ModuleList([Block(n_embeddings, n_heads, context_length, dropout) for _ in range(n_layers)]),
+            blocks = nn.ModuleList([Block(n_embeddings, bias, n_heads, dropout, context_length) for _ in range(n_layers)]),
             layer_norm = nn.LayerNorm(n_embeddings, bias),
         ))
         self.lm_head = nn.Linear(n_embeddings, vocabulary_size, bias=False)
@@ -42,31 +42,6 @@ class GPT(nn.Module):
             torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
         
     def forward(self, idx, targets=None):
-        ###
-        b, t = idx.size()
-        assert t <= self.config.block_size, f"Cannot forward sequence of length {t}, block size is only {self.config.block_size}"
-        pos = torch.arange(0, t, dtype=torch.long, device=device) # shape (t)
-
-        # forward the GPT model itself
-        tok_emb = self.transformer.wte(idx) # token embeddings of shape (b, t, n_embd)
-        pos_emb = self.transformer.wpe(pos) # position embeddings of shape (t, n_embd)
-        x = self.transformer.drop(tok_emb + pos_emb)
-        for block in self.transformer.h:
-            x = block(x)
-        x = self.transformer.ln_f(x)
-
-        if targets is not None:
-            # if we are given some desired targets also calculate the loss
-            logits = self.lm_head(x)
-            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=-1)
-        else:
-            # inference-time mini-optimization: only forward the lm_head on the very last position
-            logits = self.lm_head(x[:, [-1], :]) # note: using list [-1] to preserve the time dim
-            loss = None
-
-        # return logits, loss
-        ###
-        
         device = idx.device
         
         _, context_length = idx.shape
@@ -78,7 +53,7 @@ class GPT(nn.Module):
         for block in self.transformer.blocks:
             x = block(x)
 
-        x = self.layer_norm(x)
+        x = self.transformer.layer_norm(x)
         
         if targets is None:
             logits = self.lm_head(x[:, [-1], :]) # only forward lm_head on the very last position
@@ -110,6 +85,13 @@ class GPT(nn.Module):
 
         return optimizer
     
+    def crop_context_length(self, context_length):
+        assert context_length <= self.context_length
+        self.context_length = context_length
+        self.transformer.position_embedding_table.weight = nn.Parameter(self.transformer.position_embedding_table.weight[:context_length])
+        for block in self.transformer.blocks:
+            if hasattr(block.attention, 'bias'):
+                block.attention.bias = block.attention.bias[:,:,:context_length,:context_length]
     
     @torch.no_grad()
     def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
