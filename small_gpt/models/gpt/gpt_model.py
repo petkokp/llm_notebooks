@@ -9,6 +9,8 @@ class GPT(nn.Module):
     def __init__(self, vocabulary_size, n_embeddings, n_heads, context_length, n_layers, dropout, bias):
         super().__init__()
         
+        self.context_length = context_length
+        
         self.transformer = nn.ModuleDict(dict(
             token_embedding_table = nn.Embedding(vocabulary_size, n_embeddings),
             position_embedding_table = nn.Embedding(context_length, n_embeddings), # positions at which the tokens occur
@@ -108,18 +110,19 @@ class GPT(nn.Module):
 
         return optimizer
     
-    def generate(self, idx, max_new_tokens):
-        _, context_length = idx.shape
-        # idx is (batch_size, context_length) array of indices in the current context
+    
+    @torch.no_grad()
+    def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
         for _ in range(max_new_tokens):
-            idx_cond = idx[:, -context_length:] # crop context
-            
-            logits, loss = self(idx_cond)
-            logits = logits[:, -1, :] # becomes (batch_size, channel)
+            idx_cond = idx if idx.size(1) <= self.context_length else idx[:, -self.context_length:] # crop context at context_length
+            logits, _ = self(idx_cond)
+            logits = logits[:, -1, :] / temperature # scale logits by temperature
+            # optionally crop the logits to only the top k options
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                logits[logits < v[:, [-1]]] = -float('Inf')
+            probabilities = F.softmax(logits, dim=-1)
+            idx_next = torch.multinomial(probabilities, num_samples=1) # sample from the distribution
+            idx = torch.cat((idx, idx_next), dim=1) # append to sequence
 
-            probs = F.softmax(logits, dim=-1) # (batch_size, channel)
-            
-            next_idx = torch.multinomial(probs, num_samples=1) # (batch_size, 1)
-            
-            idx = torch.cat((idx, next_idx), dim=1) # (batch_size, context_length + 1)
         return idx
