@@ -58,6 +58,10 @@ def train_gpt(vocabulary_size, n_embeddings, n_heads, context_length, n_layers, 
     
     model_args_list = ['n_layers', 'n_heads', 'n_embeddings', 'context_length', 'bias', 'vocabulary_size']
     
+    train_losses = []
+    val_losses = []
+    steps = []
+    
     if init_from == 'scratch':
         model = GPT(vocabulary_size, n_embeddings, n_heads, context_length, n_layers, dropout, bias)
     elif init_from == 'resume':
@@ -115,6 +119,9 @@ def train_gpt(vocabulary_size, n_embeddings, n_heads, context_length, n_layers, 
         if iter_num % eval_interval == 0:
             losses = estimate_loss(model, eval_iters, batch_size, context_length, train_data, val_data, device)
             print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+            train_losses.append(losses['train'])
+            val_losses.append(losses['val'])
+            steps.append(iter_num)
 
             if losses['val'] < best_val_loss or always_save_checkpoint:
                 best_val_loss = losses['val']
@@ -169,3 +176,5 @@ def train_gpt(vocabulary_size, n_embeddings, n_heads, context_length, n_layers, 
         # termination conditions
         if iter_num > max_iters:
             break
+        
+    return train_losses, val_losses, steps
