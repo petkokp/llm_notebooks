@@ -1,17 +1,17 @@
 import torch.nn as nn
-from .feed_forward import FeedForward
-from .multi_head_attention import MultiHeadAttention
+from .layer_norm import LayerNorm
+from .causal_self_attention import CausalSelfAttention
+from .mlp import MLP
 
 class Block(nn.Module):
-    def __init__(self, n_embeddings, n_heads, context_length, dropout):
+    def __init__(self, n_embeddings, bias, n_heads, dropout, context_length):
         super().__init__()
-        head_size = n_embeddings // n_heads
-        self.self_attention = MultiHeadAttention(n_heads, head_size, n_embeddings, context_length, dropout)
-        self.feed_forward = FeedForward(n_embeddings, dropout)
-        self.layer_normalization_self_attention = nn.LayerNorm(n_embeddings)
-        self.layer_normalization_feed_forward = nn.LayerNorm(n_embeddings)
-        
-        
+        self.layer_norm_attention = LayerNorm(n_embeddings, bias)
+        self.attention = CausalSelfAttention(n_embeddings, n_heads, bias, dropout, context_length)
+        self.layer_norm_mlp = LayerNorm(n_embeddings, bias)
+        self.mlp = MLP(n_embeddings, bias, dropout)
+
     def forward(self, x):
-        x = x + self.self_attention(self.layer_normalization_self_attention(x))
-        return x + self.feed_forward(self.layer_normalization_feed_forward(x))
+        x = x + self.attention(self.layer_norm_attention(x))
+        x = x + self.mlp(self.layer_norm_mlp(x))
+        return x
