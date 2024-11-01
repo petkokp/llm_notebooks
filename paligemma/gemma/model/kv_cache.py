@@ -2,7 +2,6 @@ import torch
 from typing import List, Tuple
 
 class KVCache():
-
     def __init__(self) -> None:
         self.key_cache: List[torch.Tensor] = []
         self.value_cache: List[torch.Tensor] = []
