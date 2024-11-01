@@ -1,3 +1,6 @@
+import torch.nn as nn
+from config.paligemma_config import PaliGemmaConfig
+
 class PaliGemmaMultiModalProjector(nn.Module):
     def __init__(self, config: PaliGemmaConfig):
         super().__init__()
