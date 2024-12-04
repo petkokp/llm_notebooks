@@ -12,8 +12,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 DATA_PATH = './archive'
 CHARACTER_COUNT = 1000  # Character limit for each subsection
 OUTPUT_FILE = 'question_answer_pairs.json'
-REPO_ID = "INSAIT-Institute/BgGPT-7B-Instruct-v0.2-GGUF" #"INSAIT-Institute/BgGPT-Gemma-2-9B-IT-v1.0-GGUF"
-GGUF_FILE = "BgGPT-7B-Instruct-v0.2.F16.gguf" # "BgGPT-Gemma-2-9B-IT-v1.0.F16.gguf"
+REPO_ID = "INSAIT-Institute/BgGPT-Gemma-2-9B-IT-v1.0-GGUF" #"INSAIT-Institute/BgGPT-7B-Instruct-v0.2-GGUF"
+GGUF_FILE = "BgGPT-Gemma-2-9B-IT-v1.0.F16.gguf" # "BgGPT-7B-Instruct-v0.2.F16.gguf"
 GPU_LAYERS = 34
 
 llm = Llama.from_pretrained(
@@ -130,7 +130,7 @@ def process_text_file(file_path, character_count, output_file):
         subsections = split_text_into_subsections(file_content, character_count)
         logging.info(f"Split file into {len(subsections)} subsections.")
         
-        batch_size = 50
+        batch_size = 10
         batch = []
 
         for subsection in tqdm(subsections, desc=f"Processing {os.path.basename(file_path)}"):

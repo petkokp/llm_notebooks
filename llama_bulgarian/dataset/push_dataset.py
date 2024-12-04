@@ -12,4 +12,6 @@ df = pd.read_json('dataset.json')
 
 dataset = Dataset.from_pandas(df)
 
+dataset = dataset.train_test_split(test_size=0.1)
+
 dataset.push_to_hub(HUGGINGFACE_DATASET)
