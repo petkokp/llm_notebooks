@@ -22,8 +22,8 @@ def main():
                         help='The name of the dataset to use for fine-tuning. This should be the output of the combine_checkpoints script.')
     parser.add_argument('instruction_prompt', type=str, 
                         help='An instruction message added to every prompt given to the chatbot to force it to answer in the target language. Example: "You are a generic chatbot that always answers in English."')
-    parser.add_argument('--base_model', type=str, default="unsloth/Llama-3.2-1B-Instruct",
-                        help='The base foundation model. Default is "unsloth/Llama-3.2-1B-Instruct".')
+    parser.add_argument('--base_model', type=str, default="unsloth/Llama-3.2-3B-Instruct",
+                        help='The base foundation model. Default is "unsloth/Llama-3.2-3B-Instruct".')
     parser.add_argument('--base_dataset_text_field', type=str, default="text",
                         help="The dataset's column name containing the actual text to translate. Defaults to text")
     parser.add_argument('--base_dataset_rank_field', type=str, default="rank",
@@ -42,7 +42,7 @@ def main():
                         help='The maximum sequence length to use in finetuning. Should most likely line up with your base model\'s default max_seq_length. Default is 512.')
     parser.add_argument('--num_train_epochs', type=int, default=2,
                         help='Number of epochs to use. 2 is default and has been shown to work well.')
-    parser.add_argument('--batch_size', type=int, default=4,
+    parser.add_argument('--batch_size', type=int, default=2,
                         help='The batch size to use in finetuning. Adjust to fit in your GPU vRAM. Default is 2')
     parser.add_argument('--threads_output_name', type=str, default=None,
                         help='If specified, the threads created in this script for finetuning will also be saved to disk or HuggingFace Hub.')

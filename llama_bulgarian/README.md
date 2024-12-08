@@ -12,7 +12,7 @@ The project also contains an experiment with generating synthetic question-answe
 
 ### Example:
 
-```python finetune.py petkopetkov/Llama-3.2-1B-Instruct-bg petkopetkov/oasst1_bg "Ти си полезен асистент, който отговаря само на български език."```
+```python finetune.py petkopetkov/Llama3.2-1B-Instruct-bg petkopetkov/oasst1_bg "Ти си полезен асистент, който отговаря само на български език."```
 
 ### Generate synthetic question-answer dataset on Bulgarian books:
 
