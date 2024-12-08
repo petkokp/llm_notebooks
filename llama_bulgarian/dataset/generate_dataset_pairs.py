@@ -1,3 +1,5 @@
+# The raw-text books translated to Bulgarian language can be downloaded from https://huggingface.co/datasets/petkopetkov/chitanka
+
 import os
 import json
 import logging
