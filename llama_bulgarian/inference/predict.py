@@ -4,7 +4,7 @@ from transformers import pipeline
 MODEL_ID = "petkopetkov/Llama3.2-3B-Instruct-bg"
 PROMPT = "Колко е 2+2?"
 
-def predict(model_id=MODEL_ID, prompt=PROMPT):
+def predict(prompt=PROMPT, model_id=MODEL_ID):
     pipe = pipeline(
         "text-generation", 
         model=model_id, 
@@ -12,4 +12,4 @@ def predict(model_id=MODEL_ID, prompt=PROMPT):
         device_map="auto",
     )
 
-    return pipe(PROMPT)[0]['generated_text']
+    return pipe(prompt)[0]['generated_text']
