@@ -48,3 +48,4 @@ def process_rationales(dataset, split):
     
     print(f"Processed {split} dataset")
 
+    return dataset

@@ -32,3 +32,5 @@ def process_options(dataset, split):
     })
     
     print(f"Processed {split} dataset")
+
+    return dataset

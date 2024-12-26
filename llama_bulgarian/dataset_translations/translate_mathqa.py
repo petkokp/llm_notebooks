@@ -1,7 +1,7 @@
 from datasets import Dataset, DatasetDict
 from translate_dataset import translate_dataset
-from mathqa_postprocessing.process_options import process_options
-from mathqa_postprocessing.process_rationale import process_rationales
+from mathqa.process_options import process_options
+from mathqa.process_rationale import process_rationales
 
 
 INCLUDE_POSTPROCESSING = True
