@@ -33,6 +33,12 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
                 elif isinstance(column_data[0], str) and not column_data[0].isdigit():
                     translated_texts = translator(column_data, max_length=610, batch_size=batch_size)
                     translated_batch[column_name] = [t["translation_text"] for t in translated_texts]
+                elif isinstance(column_data[0], list) and all(isinstance(item, str) for item in column_data[0]):
+                    translated_column = []
+                    for sublist in column_data:
+                        translated_texts = translator(sublist, max_length=610, batch_size=batch_size)
+                        translated_column.append([t["translation_text"] for t in translated_texts])
+                    translated_batch[column_name] = translated_column
                 else:
                     translated_batch[column_name] = column_data
             
@@ -55,13 +61,11 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
         checkpoint_file = f"./{ds['url'].split('/')[-1]}_translations_{split}.csv"
         processed_dataframes = []
         
-        # Load existing checkpoint data if available
         if os.path.exists(checkpoint_file):
             print(f"Found checkpoint for '{split}' split. Loading processed data.")
             processed_dataframes.append(pd.read_csv(checkpoint_file))
             processed_rows = sum(len(df) for df in processed_dataframes)
             
-            # Skip processing if the entire split is already translated
             if processed_rows >= len(ds_split):
                 print(f"The entire split '{split}' has already been translated. Skipping.")
                 continue
@@ -78,7 +82,6 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
                 translated_batch = translate_dataset_split(batch, batch_size=batch_size)
                 translated_df_batch = translated_batch.to_pandas()
                 
-                # Save incremental checkpoint
                 translated_df_batch.to_csv(checkpoint_file, mode='a', header=not os.path.exists(checkpoint_file), index=False)
                 processed_dataframes.append(translated_df_batch)
                 
