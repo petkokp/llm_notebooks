@@ -10,4 +10,4 @@ output_dataset_url = "petkopetkov/hellaswag-bg"
 
 exclude_columns = ["ind", "activity_label", "source_id", "split", "split_type", "label"]
 
-translate_dataset(dataset, translation_model, output_dataset_url, exclude_columns=exclude_columns, batch_size=88)
+translate_dataset(dataset, translation_model, output_dataset_url, exclude_columns=exclude_columns, batch_size=150)
