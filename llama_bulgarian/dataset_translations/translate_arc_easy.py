@@ -1,7 +1,7 @@
 from datasets import Dataset, DatasetDict
 from translate_dataset import translate_dataset
-from arceasy.preprocess_arceasy import preprocess_arceasy_choices
-from arceasy.postprocess_arceasy import postprocess_arceasy_choices
+from arc.preprocess_arc import preprocess_arc_choices
+from arc.postprocess_arc import postprocess_arc_choices
 
 INCLUDE_POSTPROCESSING = True
 
@@ -15,7 +15,7 @@ output_dataset_url = "petkopetkov/arc-easy-bg"
 
 exclude_columns = ["id", "answerKey"]
 
-translate_dataset(dataset, translation_model, output_dataset_url, batch_size=108, exclude_columns=exclude_columns, preprocess_dataset=preprocess_arceasy_choices)
+translate_dataset(dataset, translation_model, output_dataset_url, batch_size=108, exclude_columns=exclude_columns, preprocess_dataset=preprocess_arc_choices)
 
 if INCLUDE_POSTPROCESSING:
     splits = ["train", "test", "validation"]
@@ -30,7 +30,7 @@ if INCLUDE_POSTPROCESSING:
 
     for split in splits:
         print(f"Processing {split}")
-        combined_dataset = postprocess_arceasy_choices(combined_dataset, split)
+        combined_dataset = postprocess_arc_choices(combined_dataset, split)
         print(f"Processed {split}")
 
     combined_dataset.push_to_hub(output_dataset_url)

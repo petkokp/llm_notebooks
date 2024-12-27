@@ -1,8 +1,10 @@
 import os
 from datasets import load_dataset, DatasetDict, Dataset
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 import torch
 import pandas as pd
+#from optimum.nvidia.pipelines import pipeline
+#from optimum.pipelines import pipeline
 
 def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, hf_token_env='HF_TOKEN', checkpoint_interval=1000, exclude_columns=None, preprocess_dataset=None):
     if exclude_columns is None:
@@ -21,7 +23,8 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
     print("Loading dataset...")
     dataset = load_dataset(ds['url'], ds['config'] if "config" in ds else None)
     
-    translator = pipeline("translation", model=translation_model, device=device)
+    tokenizer = AutoTokenizer.from_pretrained(translation_model, use_fast=True)
+    translator = pipeline("translation", model=translation_model, tokenizer=tokenizer, device=device, torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16)
     
     def translate_dataset_split(dataset_split, batch_size=32):
         def batch_translate(batch):
@@ -49,6 +52,8 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
     translated_splits = {}
     
     for split in dataset.keys():
+        if split != "auxiliary_train": continue
+        
         if preprocess_dataset is not None:
             dataset = preprocess_dataset(dataset, split)
         
@@ -75,7 +80,7 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
             processed_rows = 0
         
         if len(ds_split) > 0:
-            for start_idx in range(0, len(ds_split), checkpoint_interval):
+            for start_idx in range(10, len(ds_split), checkpoint_interval):
                 end_idx = min(start_idx + checkpoint_interval, len(ds_split))
                 batch = ds_split.select(range(start_idx, end_idx))
                 
