@@ -15,7 +15,7 @@ output_dataset_url = "petkopetkov/winogrande_xl-bg"
 
 exclude_columns = ["answer"]
 
-translate_dataset(dataset, translation_model, output_dataset_url, batch_size=102, exclude_columns=exclude_columns, preprocess_dataset=preprocess_winogrande_sentences)
+#translate_dataset(dataset, translation_model, output_dataset_url, batch_size=102, exclude_columns=exclude_columns, preprocess_dataset=preprocess_winogrande_sentences)
 
 if INCLUDE_POSTPROCESSING:
     splits = ["train", "test", "validation"]
