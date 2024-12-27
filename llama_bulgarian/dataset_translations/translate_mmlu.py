@@ -10,4 +10,4 @@ output_dataset_url = "petkopetkov/mmlu-bg"
 
 exclude_columns = ["subject", "answer"]
 
-translate_dataset(dataset, translation_model, output_dataset_url, batch_size=32, checkpoint_interval=532)
+translate_dataset(dataset, translation_model, output_dataset_url, batch_size=38, exclude_columns=exclude_columns, checkpoint_interval=532)

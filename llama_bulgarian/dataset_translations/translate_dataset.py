@@ -24,7 +24,7 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
     dataset = load_dataset(ds['url'], ds['config'] if "config" in ds else None)
     
     tokenizer = AutoTokenizer.from_pretrained(translation_model, use_fast=True)
-    translator = pipeline("translation", model=translation_model, tokenizer=tokenizer, device=device, torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16)
+    translator = pipeline("translation", model=translation_model, tokenizer=tokenizer, truncation=True, device=device, torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16)
     
     def translate_dataset_split(dataset_split, batch_size=32):
         def batch_translate(batch):
@@ -34,12 +34,12 @@ def translate_dataset(ds, translation_model, output_dataset_url, batch_size=32, 
                 if column_name in exclude_columns:
                     translated_batch[column_name] = column_data
                 elif isinstance(column_data[0], str) and not column_data[0].isdigit():
-                    translated_texts = translator(column_data, max_length=610, batch_size=batch_size)
+                    translated_texts = translator(column_data, truncation=True, max_length=512, batch_size=batch_size)
                     translated_batch[column_name] = [t["translation_text"] for t in translated_texts]
                 elif isinstance(column_data[0], list) and all(isinstance(item, str) for item in column_data[0]):
                     translated_column = []
                     for sublist in column_data:
-                        translated_texts = translator(sublist, max_length=610, batch_size=batch_size)
+                        translated_texts = translator(sublist, truncation=True, max_length=512, batch_size=batch_size)
                         translated_column.append([t["translation_text"] for t in translated_texts])
                     translated_batch[column_name] = translated_column
                 else:

@@ -21,9 +21,9 @@ if INCLUDE_POSTPROCESSING:
     splits = ["train", "test", "validation"]
 
     translated_splits = {
-        "train": Dataset.from_csv("ai2_arc_translations_train.csv"),
-        "test": Dataset.from_csv("ai2_arc_translations_test.csv"),
-        "validation": Dataset.from_csv("ai2_arc_translations_validation.csv")
+        "train": Dataset.from_csv("challenge_ai2_arc_translations_train.csv"),
+        "test": Dataset.from_csv("challenge_ai2_arc_translations_test.csv"),
+        "validation": Dataset.from_csv("challenge_ai2_arc_translations_validation.csv")
     }
     
     combined_dataset = DatasetDict(translated_splits)
