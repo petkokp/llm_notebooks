@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 DATASET = "petkopetkov/chitanka"
 
-def main(split="validation", lang="bg", docs_to_sample=30_000, save_path="data"):
+def main(split="train", lang="bg", docs_to_sample=300_000, save_path="data"):
     dataset = load_dataset(DATASET, split=split, streaming=True)
     os.makedirs(save_path, exist_ok=True)
     with open(os.path.join(save_path, f"{lang}.txt"), "w") as f:
