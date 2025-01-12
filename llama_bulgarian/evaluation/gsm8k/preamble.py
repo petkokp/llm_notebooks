@@ -1,2 +1,0 @@
-# PREAMBLE = """As an expert problem solver solve step by step the following mathematical questions."""
-PREAMBLE = """Ти си експерт в решаването на задачи. Реши стъпка по стъпка следните математически въпроси."""
