@@ -8,11 +8,13 @@ This project contains various experiments on finetuning small LLMs (SmolLM, Llam
 - Hellaswag - https://huggingface.co/datasets/petkopetkov/hellaswag-bg
 - MathQA - https://huggingface.co/datasets/petkopetkov/math_qa-bg
 - Winogrande - https://huggingface.co/datasets/petkopetkov/winogrande_xl-bg
-- GSM8L - https://huggingface.co/datasets/petkopetkov/gsm8k-bg
+- GSM8K - https://huggingface.co/datasets/petkopetkov/gsm8k-bg
 - ARC Easy - https://huggingface.co/datasets/petkopetkov/arc-easy-bg
 - ARC Challenge - https://huggingface.co/datasets/petkopetkov/arc-challenge-bg
 - OASST1 - https://huggingface.co/datasets/petkopetkov/oasst1_bg
 - OASST2 - https://huggingface.co/datasets/petkopetkov/oasst2_bg
+  
+More information on the datasets can be found [here](./datasets/README.md).
 
 ## Finetune on MMLU, Hellaswag, MathQA, Winogrande, GSM8K, ARC Easy/Challenge
 
@@ -52,12 +54,29 @@ python ./training/tokenizer/train_tokenizer.py
 
 Finetuned models on the translated MMLU, Hellaswag, MathQA, Winogrande, GSM8k, ARC Easy/Challenge datasets:
 
-- SmolLM2-135 - https://huggingface.co/petkopetkov/SmolLM2-135M-bg
+- SmolLM2-135M - https://huggingface.co/petkopetkov/SmolLM2-135M-bg
 - Llama3.2-1B - https://huggingface.co/petkopetkov/Llama3.2-1B-bg
 - Llama3.2-1B-Instruct - https://huggingface.co/petkopetkov/Llama3.2-1B-Instruct-bg
 - Llama3.2-1B (custom tokenizer) - https://huggingface.co/petkopetkov/Llama3.2-1B-bg-tokenizer
 - Gemma-2-2B - https://huggingface.co/petkopetkov/gemma-2-2b-bg
 
+### Evaluation
+
+To evaluate a model (in this case SmolLM2-135M-bg) on all of the available tasks:
+
+```
+lm_eval \
+  --model hf \
+  --model_args pretrained=petkopetkov/SmolLM2-135M-bg \
+  --tasks \
+    mmlu_bg,hellaswag_bg,mathqa_bg,winogrande_bg,gsm8k_bg,arc_easy_bg,arc_challenge_bg \
+  --device cuda:0 \
+  --batch_size auto:4 \
+  --include_path ./evaluation/tasks \
+  --output_path ./results
+```
+
+More information [here](./evaluation/README.md).
 
 ## Finetune on OASST1 Bulgarian dataset
 

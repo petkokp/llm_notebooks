@@ -3,5 +3,4 @@ archive
 __pycache__
 *output*
 wandb
-results
 Llama*

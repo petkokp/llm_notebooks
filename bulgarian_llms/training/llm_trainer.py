@@ -132,24 +132,6 @@ class LLMTrainer:
         
         print(f"Loaded {split} split with {len(final_dataset)} examples")
         return final_dataset
-
-    def evaluate_by_dataset(self, eval_dataset: Dataset):
-        # group examples by source dataset
-        dataset_groups = {}
-        for idx in range(len(eval_dataset)):
-            source = eval_dataset[idx]['source_dataset']
-            if source not in dataset_groups:
-                dataset_groups[source] = []
-            dataset_groups[source].append(idx)
-
-        # evaluate each group separately
-        results = {}
-        for source, indices in dataset_groups.items():
-            subset = eval_dataset.select(indices)
-            eval_results = self.trainer.evaluate(eval_dataset=subset)
-            results[source] = eval_results
-
-        return results
     
     def train(
         self,
@@ -214,13 +196,6 @@ class LLMTrainer:
         self.tokenizer.save_pretrained(self.output_dir)
         
         print(f"\nSaved the trained model to {self.output_dir}")
-        
-        # print("\nEvaluating on test set:")
-        # test_results = self.evaluate_by_dataset(test_dataset)
-        # for dataset_name, results in test_results.items():
-        #     print(f"\n{dataset_name} results:")
-        #     for metric, value in results.items():
-        #         print(f"{metric}: {value}")
 
 def main():
     trainer = LLMTrainer()
