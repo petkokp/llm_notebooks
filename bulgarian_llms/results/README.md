@@ -8,11 +8,11 @@ All Tensorboard metrics: https://huggingface.co/petkopetkov/SmolLM2-135M-bg/tens
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <figure style="text-align: center;">
-    <img src="./images/SmolLM2-135M/train_loss.svg" alt="Train Loss" style="width: 100%;">
+    <img src="./images/SmolLM2-135M_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
     <figcaption><b>Train loss</b></figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="./images/SmolLM2-135M/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
+    <img src="./images/SmolLM2-135M_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
     <figcaption><b>Eval loss</b></figcaption>
   </figure>
 </div>
@@ -23,11 +23,11 @@ All Tensorboard metrics: https://huggingface.co/petkopetkov/Llama3.2-1B-bg/tenso
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B/train_loss.svg" alt="Train Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
     <figcaption><b>Train loss</b></figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
     <figcaption><b>Eval loss</b></figcaption>
   </figure>
 </div>
@@ -38,11 +38,11 @@ All Tensorboard metrics: https://huggingface.co/petkopetkov/Llama3.2-1B-Instruct
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B-Instruct/train_loss.svg" alt="Train Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B-Instruct_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
     <figcaption><b>Train loss</b></figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B-Instruct/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B-Instruct_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
     <figcaption><b>Eval loss</b></figcaption>
   </figure>
 </div>
@@ -53,11 +53,11 @@ All Tensorboard metrics: https://huggingface.co/petkopetkov/Llama3.2-1B-Instruct
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B-tokenizer/train_loss.svg" alt="Train Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B-tokenizer_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
     <figcaption><b>Train loss</b></figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="./images/Llama3.2-1B-tokenizer/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
+    <img src="./images/Llama3.2-1B-tokenizer_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
     <figcaption><b>Eval loss</b></figcaption>
   </figure>
 </div>
@@ -68,11 +68,11 @@ All Tensorboard metrics: https://huggingface.co/petkopetkov/gemma-2-2b-bg/tensor
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
   <figure style="text-align: center;">
-    <img src="./images/gemma-2-2b/train_loss.svg" alt="Train Loss" style="width: 100%;">
+    <img src="./images/gemma-2-2b_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
     <figcaption><b>Train loss</b></figcaption>
   </figure>
   <figure style="text-align: center;">
-    <img src="./images/gemma-2-2b/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
+    <img src="./images/gemma-2-2b_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
     <figcaption><b>Eval loss</b></figcaption>
   </figure>
 </div>
