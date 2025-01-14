@@ -6,16 +6,8 @@ Includes train and eval loss plots from Tensorboard. Each plot contains differen
   
 All Tensorboard metrics: https://huggingface.co/petkopetkov/SmolLM2-135M-bg/tensorboard
 
-<div style="display: flex; justify-content: space-around; align-items: center;">
-  <figure style="text-align: center;">
-    <img src="./images/SmolLM2-135M_plots/train_loss.svg" alt="Train Loss" style="width: 100%;">
-    <figcaption><b>Train loss</b></figcaption>
-  </figure>
-  <figure style="text-align: center;">
-    <img src="./images/SmolLM2-135M_plots/eval_loss.svg" alt="Eval Loss" style="width: 100%;">
-    <figcaption><b>Eval loss</b></figcaption>
-  </figure>
-</div>
+<img src="./images/SmolLM2-135M_plots/train_loss.svg" width="45%" alt="Train Loss"> <!-- -->
+<img src="./images/SmolLM2-135M_plots/eval_loss.svg" width="45%" alt="Eval Loss">
 
 ### Llama3.2-1B (batch size 64, 3 epochs)
 
