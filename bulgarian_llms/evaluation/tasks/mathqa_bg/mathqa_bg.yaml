@@ -6,11 +6,11 @@ output_type: multiple_choice
 training_split: train
 validation_split: validation
 test_split: test
-doc_to_text: "Задача: {{Problem}}\nОтговори:"
+doc_to_text: "Задача: {{Problem}}\nОтговор:"
 doc_to_target: "{{['a', 'b', 'c', 'd', 'e'].index(correct)}}"
 doc_to_choice: !function utils.doc_to_choice
 should_decontaminate: true
-doc_to_decontamination_query: "Задача: {{Problem}}\nОтговори:"
+doc_to_decontamination_query: "Задача: {{Problem}}\nОтговор:"
 metric_list:
   - metric: acc
     aggregation: mean

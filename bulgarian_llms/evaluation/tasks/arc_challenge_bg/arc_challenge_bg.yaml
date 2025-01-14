@@ -6,12 +6,11 @@ output_type: multiple_choice
 training_split: train
 validation_split: validation
 test_split: test
-process_docs: !function utils.process_docs
-doc_to_text: "query"
-doc_to_target: "gold"
-doc_to_choice: "choices"
+doc_to_text: "Въпрос: {{question}}\nОтговор:"
+doc_to_target: "{{choices.label.index(answerKey)}}"
+doc_to_choice: "{{choices.text}}"
 should_decontaminate: true
-doc_to_decontamination_query: "query"
+doc_to_decontamination_query: "Въпрос: {{question}}\nОтговор:"
 metric_list:
   - metric: acc
     aggregation: mean
@@ -20,4 +19,4 @@ metric_list:
     aggregation: mean
     higher_is_better: true
 metadata:
-  version: 2.0
+  version: 1.0

@@ -2,9 +2,8 @@ task: winogrande_bg
 tag:
   - winogrande_bulgarian
 dataset_path: petkopetkov/winogrande_xl-bg
-training_split: null
-validation_split: null
-test_split: test
+training_split: train
+validation_split: validation
 output_type: multiple_choice
 doc_to_text: !function utils.doc_to_text
 doc_to_target: !function utils.doc_to_target

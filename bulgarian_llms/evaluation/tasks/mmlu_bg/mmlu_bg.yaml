@@ -7,8 +7,8 @@ fewshot_split: dev
 fewshot_config:
   sampler: first_n
 output_type: multiple_choice
-doc_to_text: "{{instruction.strip()}}\n1) {{option_a}}\n2) {{option_b}}\n3) {{option_c}}\n4) {{option_d}}\nПравилният отговор е "
-doc_to_choice: ["1", "2", "3", "4"]
+doc_to_text: !function utils.doc_to_text
+doc_to_choice: ["A", "B", "C", "D"]
 doc_to_target: answer
 metric_list:
   - metric: acc
