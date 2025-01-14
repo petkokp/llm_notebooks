@@ -3,6 +3,7 @@ import torch
 from datasets import Dataset, interleave_datasets
 from transformers import (
     TrainingArguments,
+    AutoTokenizer,
 )
 from unsloth import FastLanguageModel, is_bfloat16_supported
 from trl import SFTTrainer
@@ -19,10 +20,11 @@ def format_for_sft(example):
 class LLMTrainer:
     def __init__(
         self,
-        model_name: str = "unsloth/Llama-3.2-1B-Instruct",
+        model_name: str = "unsloth/SmolLM2-360M", # "unsloth/gemma-2-2b", #"unsloth/SmolLM2-1.7B", #"unsloth/SmolLM2-1.7B"
         # data_dir: str = "processed_datasets", # TODO - maybe add to the process_datasets.py file after
-        output_dir: str = "llama3.2-1B-Instruct_finetuned_model",
-        device: str = "cuda" if torch.cuda.is_available() else "cpu"
+        output_dir: str = "smollm2-360M_finetuned_model",
+        device: str = "cuda" if torch.cuda.is_available() else "cpu",
+        custom_tokenizer_path = None,
     ):
         self.model_name = model_name
         # self.data_dir = data_dir
@@ -31,10 +33,14 @@ class LLMTrainer:
         
         self.model, self.tokenizer = FastLanguageModel.from_pretrained(
             model_name=model_name,
-            max_seq_length=5020,
+            max_seq_length=2048,
             dtype=None,
             load_in_4bit=True,
+            attn_implementation="flash_attention_2",
         )
+        
+        if custom_tokenizer_path:
+            self.tokenizer = AutoTokenizer.from_pretrained(custom_tokenizer_path)
         
         self.model = FastLanguageModel.get_peft_model(
             self.model,
@@ -176,7 +182,7 @@ class LLMTrainer:
             train_dataset=train_dataset,
             eval_dataset=val_dataset,
             dataset_text_field="text",
-            max_seq_length=5020,
+            max_seq_length=2048,
             args=TrainingArguments(
                 output_dir=self.output_dir,
                 num_train_epochs=num_epochs,
@@ -207,16 +213,17 @@ class LLMTrainer:
         self.trainer.save_model(self.output_dir)
         self.tokenizer.save_pretrained(self.output_dir)
         
-        print("\nEvaluating on test set:")
-        test_results = self.evaluate_by_dataset(test_dataset)
-        for dataset_name, results in test_results.items():
-            print(f"\n{dataset_name} results:")
-            for metric, value in results.items():
-                print(f"{metric}: {value}")
+        print(f"\nSaved the trained model to {self.output_dir}")
+        
+        # print("\nEvaluating on test set:")
+        # test_results = self.evaluate_by_dataset(test_dataset)
+        # for dataset_name, results in test_results.items():
+        #     print(f"\n{dataset_name} results:")
+        #     for metric, value in results.items():
+        #         print(f"{metric}: {value}")
 
 def main():
-    output_dir = "finetuned_model"
-    trainer = LLMTrainer() # output_dir
+    trainer = LLMTrainer()
     
     dataset_names = ["mmlu", "winogrande", "hellaswag", "mathqa", "gsm8k", "arc_easy", "arc_challenge"]
     
@@ -244,7 +251,7 @@ def main():
         dataset_names=dataset_names,
         mixing_strategy="proportional",  # Can be "equal", "proportional", or "custom"
         num_epochs=3,
-        batch_size=64,
+        batch_size=128,
         gradient_accumulation_steps=8,
         learning_rate=3e-4,
         warmup_steps=2,

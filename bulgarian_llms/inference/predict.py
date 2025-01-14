@@ -10,6 +10,9 @@ def predict(prompt=PROMPT, model_id=MODEL_ID):
         model=model_id, 
         torch_dtype=torch.bfloat16, 
         device_map="auto",
+        repetition_penalty=1.2,
     )
 
     return pipe(prompt)[0]['generated_text']
+
+print(predict())
