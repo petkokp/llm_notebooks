@@ -12,7 +12,6 @@ def map_label_choices(choice: str):
     elif choice == "3 пъти": return "3"
     elif choice == "4 пъти": return "4"
     
-# TODO - this is duplicated with MMLU postprocessing, reuse it
 def convert_text_to_list(choice_str):
     try:
         choice_str = choice_str.replace("‘", "'").replace("’", "'")

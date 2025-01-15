@@ -94,6 +94,15 @@ python ./training/oasst_1/finetune.py tuned_model dataset_name instruction_promp
 python ./training/oasst_1/finetune.py petkopetkov/Llama3.2-1B-Instruct-bg petkopetkov/oasst1_bg "Ти си полезен асистент, който отговаря само на български език."
 ```
 
+### Finetuned models on OASST1 Bulgarian dataset
+
+Finetuned models on the translated OASST1 Bulgarian dataset:
+
+- SmolLM2-1-7B - https://huggingface.co/petkopetkov/SmolLM2-1.7B-bg
+- SmolLM2-1-7B-Instruct - https://huggingface.co/petkopetkov/SmolLM2-1.7B-Instruct-bg
+- SmolLM-1-7B - https://huggingface.co/petkopetkov/SmolLM-1-7B-bg
+- Llama3.2-3B-Instruct - https://huggingface.co/petkopetkov/Llama3.2-3B-Instruct-bg
+
 ## Finetune on synthetic dataset from books translated to Bulgarian
 
 The project also contains an experiment with generating synthetic question-answer dataset based on books translated to Bulgarian language using other language models such as [BgGPT](https://huggingface.co/INSAIT-Institute/BgGPT-Gemma-2-9B-IT-v1.0) and finetuning models on this dataset. The dataset is available on https://huggingface.co/datasets/petkopetkov/QABGB.

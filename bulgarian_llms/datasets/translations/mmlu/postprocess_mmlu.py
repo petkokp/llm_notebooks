@@ -48,7 +48,7 @@ def map_subject(s):
     elif s == "хранене": 
         return "nutrition"
     elif s == "юриспруденция": 
-        return "jurisprudence" # TODO - check if translations are correct
+        return "jurisprudence"
     if s == "business_ethics (Етика на бизнеса)":
         return "business_ethics"
     elif s == "college_computer_наука":
@@ -140,7 +140,6 @@ def map_choices(choice: str):
 
 def convert_choices_to_list(choice_str):
     try:
-        # TODO - not good, include the correct conditions in the transformation below
         if "ГГТКТКАТК" in choice_str:
             return [ "5’ – GCATCCTCATG – 3’", "5’ – TGATCCCAG – 3’", "5’ – GGTCCTCATC – 3’", "5’ – GGATCCATG – 3’" ]
         elif "Място на свързване на рибозомите" in choice_str:

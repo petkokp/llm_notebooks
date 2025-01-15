@@ -20,8 +20,7 @@ def format_for_sft(example):
 class LLMTrainer:
     def __init__(
         self,
-        model_name: str = "unsloth/SmolLM2-360M", # "unsloth/gemma-2-2b", #"unsloth/SmolLM2-1.7B", #"unsloth/SmolLM2-1.7B"
-        # data_dir: str = "processed_datasets", # TODO - maybe add to the process_datasets.py file after
+        model_name: str = "unsloth/SmolLM2-360M",
         output_dir: str = "smollm2-360M_finetuned_model",
         device: str = "cuda" if torch.cuda.is_available() else "cpu",
         custom_tokenizer_path = None,
@@ -55,7 +54,7 @@ class LLMTrainer:
         )
         
     def load_dataset_split(self, dataset_name: str, split: str) -> Dataset:
-        file_path = os.path.join(f"{dataset_name}_processed.json") # TODO - add self.data_dir to the path after the process_datasets.py file is updated
+        file_path = os.path.join(f"{dataset_name}_processed.json")
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             data = data[split]
@@ -177,9 +176,9 @@ class LLMTrainer:
                 bf16=is_bfloat16_supported(),
                 logging_steps=5,
                 eval_strategy="steps",
-                eval_steps=50,
+                eval_steps=25,
                 save_strategy="steps",
-                save_steps=50,
+                save_steps=25,
                 load_best_model_at_end=True,
                 max_grad_norm=1.0,
                 weight_decay=0.01,
