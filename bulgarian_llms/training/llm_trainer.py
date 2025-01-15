@@ -26,7 +26,6 @@ class LLMTrainer:
         custom_tokenizer_path = None,
     ):
         self.model_name = model_name
-        # self.data_dir = data_dir
         self.output_dir = output_dir
         self.device = device
         

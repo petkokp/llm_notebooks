@@ -4,7 +4,7 @@ Before the training process begins, quantized versions of the models are loaded 
 
 After that, the datasets preparation is performed. All of the datasets are combined to a single dataset which contains ~227,000 train samples. Different dataset mixing strategies are supported.
 
-The training is done using the Supervised Fine-tuning (SFT) trainer from the [trl](https://github.com/huggingface/trl) library. All the models are finetuned for 3 epochs. For some of them batch size of 128 is used and for others 64 (depending on the model's size).
+The training is done using the Supervised Fine-tuning (SFT) trainer from the [trl](https://github.com/huggingface/trl) library. All the models are finetuned for 3 epochs. For some of them batch size of 128 is used and for others 64 (depending on the model's size). Flash attention 2 and bfloat16 are used for the training.
 
 ### How to train:
 
@@ -20,5 +20,5 @@ Start the training process:
 python ./training/llm_trainer.py
 ```
 
-Results from the training (train and eval loss plots) can be [here](../results/README.md).
+Results from the training (train and eval loss plots) can be found [here](../results/README.md).
 

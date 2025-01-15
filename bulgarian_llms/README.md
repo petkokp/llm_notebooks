@@ -60,6 +60,8 @@ Finetuned models on the translated MMLU, Hellaswag, MathQA, Winogrande, GSM8k, A
 - Llama3.2-1B (custom tokenizer) - https://huggingface.co/petkopetkov/Llama3.2-1B-bg-tokenizer
 - Gemma-2-2B - https://huggingface.co/petkopetkov/gemma-2-2b-bg
 
+Results from the training (train and eval loss plots) can be found [here](../results/README.md).
+
 ### Evaluation
 
 To evaluate a model (in this case SmolLM2-135M-bg) on all of the available tasks:
