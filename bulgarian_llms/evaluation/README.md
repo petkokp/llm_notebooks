@@ -16,12 +16,12 @@ The models can be evaluated on the following tasks (Bulgarian language):
 - [ARC Easy](./tasks/arc_easy_bg/arc_easy_bg.yaml)
 - [ARC Challenge](./tasks/arc_challenge_bg/arc_challenge_bg.yaml)
 
-To evaluate a model (in this case SmolLM2-135M-bg) on all of the available tasks:
+To evaluate a model (in this case SmolLM2-360M-bg) on all of the available tasks:
 
 ```
 lm_eval \
   --model hf \
-  --model_args pretrained=petkopetkov/SmolLM2-135M-bg \
+  --model_args pretrained=petkopetkov/SmolLM2-360M-bg \
   --tasks \
     mmlu_bg,hellaswag_bg,mathqa_bg,winogrande_bg,gsm8k_bg,arc_easy_bg,arc_challenge_bg \
   --device cuda:0 \

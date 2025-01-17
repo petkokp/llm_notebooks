@@ -2,6 +2,14 @@
 
 Includes train and eval loss plots from Tensorboard. Each plot contains different colors because there were multiple runs to finish the whole training process (each color in a plot represents result from a particular run).
 
+### SmolLM2-360M (batch size 128, 3 epochs)
+  
+All Tensorboard metrics: https://huggingface.co/petkopetkov/SmolLM2-360M-bg/tensorboard
+
+| Train loss | Eval loss |
+|------------|-----------|
+| <img src="./images/SmolLM2-360M_plots/train_loss.svg" alt="drawing" width="100%"/> | <img src="./images/SmolLM2-360M_plots/eval_loss.svg" alt="drawing" width="100%"/> |
+
 ### SmolLM2-135M (batch size 128, 3 epochs)
   
 All Tensorboard metrics: https://huggingface.co/petkopetkov/SmolLM2-135M-bg/tensorboard

@@ -1,6 +1,6 @@
 from unsloth import FastLanguageModel
 
-output = "smollm2-360M_finetuned_model"
+output = "../../smollm2-360M_finetuned_model"
 
 REPO_PATH = "petkopetkov/SmolLM2-360M-bg"
 
