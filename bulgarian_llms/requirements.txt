@@ -1,0 +1,10 @@
+fire==0.7.0
+pandas==2.2.3
+peft==0.13.2
+scikit_learn==1.6.1
+tokenizers==0.21.0
+torch==2.5.1
+tqdm==4.66.5
+transformers==4.47.1
+trl==0.12.1
+unsloth==2024.12.11

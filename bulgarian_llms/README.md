@@ -16,6 +16,18 @@ This project contains various experiments on finetuning small LLMs (SmolLM, Llam
   
 More information on the datasets can be found [here](./datasets/README.md).
 
+### Create virtual environment:
+
+```
+python -m venv env && source ./env/bin/activate
+```
+
+### Install required packages:
+
+```
+pip install -r requirements.txt
+```
+
 ## Finetune on MMLU, Hellaswag, MathQA, Winogrande, GSM8K, ARC Easy/Challenge
 
 The MMLU, Hellaswag, MathQA, Winogrande, GSM8k, ARC Easy/Challenge datasets are translated to Bulgarian (the scripts for the translations are in the datasets/translations folder).
