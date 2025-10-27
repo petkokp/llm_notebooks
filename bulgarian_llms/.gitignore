@@ -2,4 +2,8 @@ archive
 *.json
 __pycache__
 *output*
-wandb
+*checkpoints
+*unsloth_compiled_cache
+*wandb
+*ckpt*
+tokenizers/*Qwen3-VL-2B*
