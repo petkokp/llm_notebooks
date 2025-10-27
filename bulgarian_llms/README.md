@@ -43,7 +43,7 @@ python ./datasets/preparation/process_datasets.py
 Start the training process:
 
 ```
-python ./training/llm_trainer.py
+python ./llm_training/llm_trainer.py
 ```
 
 ### Custom tokenizer
@@ -53,13 +53,13 @@ Since the Llama tokenizer doesn't handle cyrillic tokens very well, a new tokeni
 Prepare the tokenizer training data:
 
 ```
-python ./training/tokenizer/prepare_tokenizer_data.py --split=validation --lang=bg --docs_to_sample=300000 --save_path=./data
+python ./llm_training/tokenizer/prepare_tokenizer_data.py --split=validation --lang=bg --docs_to_sample=300000 --save_path=./data
 ```
 
 Train a new tokenizer:
 
 ```
-python ./training/tokenizer/train_tokenizer.py
+python ./llm_training/tokenizer/train_tokenizer.py
 ```
 
 ### Finetuned models
@@ -100,13 +100,13 @@ OpenAssistant Conversations Dataset (OASST1 and OASST2) translated to Bulgarian 
 ### How to finetune:
 
 ```
-python ./training/oasst_1/finetune.py tuned_model dataset_name instruction_prompt
+python ./llm_training/oasst_1/finetune.py tuned_model dataset_name instruction_prompt
 ```
 
 ### Example parameters:
 
 ```
-python ./training/oasst_1/finetune.py petkopetkov/Llama3.2-1B-Instruct-bg petkopetkov/oasst1_bg "Ти си полезен асистент, който отговаря само на български език."
+python ./llm_training/oasst_1/finetune.py petkopetkov/Llama3.2-1B-Instruct-bg petkopetkov/oasst1_bg "Ти си полезен асистент, който отговаря само на български език."
 ```
 
 ### Finetuned models on OASST1 Bulgarian dataset
@@ -132,4 +132,4 @@ python ./datasets/preparation/generate_dataset_pairs.py
 
 The experiment is implemented in the following notebook:
 
-[llama_QABGB_dataset_finetune.ipynb](./training/QABGB/llama_QABGB_dataset_finetune.ipynb)
+[llama_QABGB_dataset_finetune.ipynb](./llm_training/QABGB/llama_QABGB_dataset_finetune.ipynb)

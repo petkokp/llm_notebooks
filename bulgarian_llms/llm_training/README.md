@@ -17,7 +17,7 @@ python ./datasets/preparation/process_datasets.py
 Start the training process:
 
 ```
-python ./training/llm_trainer.py
+python ./llm_training/llm_trainer.py
 ```
 
 Results from the training (train and eval loss plots) can be found [here](../results/README.md).
