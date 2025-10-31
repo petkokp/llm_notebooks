@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Petkov
+    given-names: Petko
+title: "Adapting VLMs and LLMs to Bulgarian language"
+date-released: 2025-10-15
+url: "https://github.com/petkokp/llm_notebooks/tree/main/bulgarian_llms"
