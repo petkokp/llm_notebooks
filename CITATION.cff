@@ -4,5 +4,5 @@ authors:
   - family-names: Petkov
     given-names: Petko
 title: "Adapting VLMs and LLMs to Bulgarian language"
-date-released: 2025-10-15
+date-released: 2025-10-31
 url: "https://github.com/petkokp/llm_notebooks/tree/main/bulgarian_llms"
