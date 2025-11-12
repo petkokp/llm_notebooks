@@ -13,7 +13,7 @@ from utils import iter_texts
 
 os.environ["TOKENIZERS_PARALLELISM"] = "1"
 
-CYR = re.compile(r"[\u0400-\u04FF]+")  # Cyrillic block
+CYR = re.compile(r"[\u0400-\u04FF]+") # cyrillic block
 
 def chunked(it, n):
     buf = []
@@ -29,10 +29,10 @@ def main():
     ap.add_argument("--dataset", default="petkopetkov/chitanka") # petkopetkov/FineVision-bg
     ap.add_argument("--name", default="default") # a_okvqa
     ap.add_argument("--split", default="train")
-    ap.add_argument("--min_freq", type=int, default=10)
-    ap.add_argument("--max_pieces", type=int, default=2)   # add words split into > max_pieces
-    ap.add_argument("--top_k", type=int, default=100000)
-    ap.add_argument("--sample_ratio", type=float, default=1.0)  # e.g., 0.5 to speed up
+    ap.add_argument("--min_freq", type=int, default=20)
+    ap.add_argument("--max_pieces", type=int, default=2) # add words split into > max_pieces
+    ap.add_argument("--top_k", type=int, default=1000)
+    ap.add_argument("--sample_ratio", type=float, default=1.0)  # 0.5 to speed up
     ap.add_argument("--streaming", action="store_true")
     ap.add_argument("--out_dir", required=True)
     args = ap.parse_args()
@@ -45,7 +45,6 @@ def main():
         # quick downsample to speed things up
         ds = ds.shuffle(seed=3407).select(range(int(len(ds) * args.sample_ratio)))
 
-    # 1) Count Cyrillic words
     logging.info("Counting Bulgarian word frequencies...")
     freq = Counter()
     total_rows = None if args.streaming else len(ds)
@@ -54,10 +53,9 @@ def main():
             if 1 <= len(w) <= 40:
                 freq[w] += 1
 
-    # 2) Candidate words the current tokenizer over-splits
-    logging.info("Selecting candidates the tokenizer splits too much…")
+    logging.info("Selecting candidates the tokenizer splits too much...")
     vocab = set(tok.get_vocab().keys())
-    # sort once; we will batch-check piece counts
+    # sort once, we will batch-check piece counts
     common = [(w, f) for w, f in freq.most_common() if f >= args.min_freq and w not in vocab]
     words = [w for w, _ in common]
     selected: List[str] = []
@@ -72,8 +70,7 @@ def main():
         if len(selected) >= args.top_k:
             break
 
-    # 3) Add tokens & save
-    logging.info(f"Adding {len(selected)} tokens to tokenizer…")
+    logging.info(f"Adding {len(selected)} tokens to tokenizer...")
     added = tok.add_tokens(selected)
     os.makedirs(args.out_dir, exist_ok=True)
     tok.save_pretrained(args.out_dir)

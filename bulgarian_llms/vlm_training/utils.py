@@ -27,7 +27,7 @@ def dynamic_steps(
     gradient_accumulation_steps: int,
     num_train_epochs: int,
     target_logs_per_epoch: int = 20,
-    target_evals_per_epoch: int = 3,
+    target_evals_per_epoch: int = 10,
     min_log_step: int = 1,
     min_eval_step: int = 10,
 ):
