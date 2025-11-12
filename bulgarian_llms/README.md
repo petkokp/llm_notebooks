@@ -23,6 +23,12 @@ It can be reproduced by running the following training script:
 python vlm_training/train_vlm.py
 ```
 
+Training and eval plots:
+
+![](./results/images/qwen_vl_plots/eval_loss.png)
+
+![](./results/images/qwen_vl_plots/train_loss.png)
+
 NOTE: This training and evaluation are very limited (small dataset size and little hyperparameter tuning). Future work includes training on the whole translated FineVision dataset (https://huggingface.co/datasets/petkopetkov/FineVision-bg) and performing tthorough evaluation on translated versions of the standard VLM benchmarks.
 
 # LLMs finetuned on Bulgarian language
