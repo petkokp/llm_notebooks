@@ -1,4 +1,29 @@
+# VLMs finetuned on Bulgarian language
 
+Initial results on translated versions of MMMU_val, MMStar and MME:
+
+| Benchmark       | Metric                  | Base (Qwen2-VL 2B Instruct) | Finetuned | Δ (Finetuned − Base) |      Δ % |
+| --------------- | ----------------------- | --------------------------: | --------: | -------------------: | -------: |
+| **MMMU_val_bg** | score                   |                        0.29 |    0.2911 |              +0.0011 |   +0.38% |
+| **MMStar_bg**   | average                 |                      0.0215 |    0.0074 |              -0.0141 |  -65.58% |
+| **MMStar_bg**   | coarse perception       |                      0.0924 |    0.0000 |              -0.0924 | -100.00% |
+| **MMStar_bg**   | fine-grained perception |                      0.0112 |    0.0140 |              +0.0028 |  +25.00% |
+| **MMStar_bg**   | instance reasoning      |                      0.0150 |    0.0067 |              -0.0083 |  -55.33% |
+| **MMStar_bg**   | logical reasoning       |                      0.0066 |    0.0030 |              -0.0036 |  -54.55% |
+| **MMStar_bg**   | math                    |                      0.0039 |    0.0000 |              -0.0039 | -100.00% |
+| **MMStar_bg**   | science & technology    |                      0.0000 |    0.0206 |              +0.0206 |        — |
+| **MME_bg**      | mme_cognition_score     |                    411.4286 |  421.0714 |              +9.6428 |   +2.34% |
+| **MME_bg**      | mme_perception_score    |                   1310.1282 | 1307.4054 |              -2.7228 |   -0.21% |
+
+The finetuned model is available on https://huggingface.co/petkopetkov/Qwen3-VL-2B-Instruct-bg
+
+It can be reproduced by running the following training script:
+
+```
+python vlm_training/train_vlm.py
+```
+
+NOTE: This training and evaluation are very limited (small dataset size and little hyperparameter tuning). Future work includes training on the whole translated FineVision dataset (https://huggingface.co/datasets/petkopetkov/FineVision-bg) and performing tthorough evaluation on translated versions of the standard VLM benchmarks.
 
 # LLMs finetuned on Bulgarian language
 
